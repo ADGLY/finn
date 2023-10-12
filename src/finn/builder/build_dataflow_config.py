@@ -83,6 +83,7 @@ class VitisOptStrategyCfg(str, Enum):
     SIZE = "size"
     BUILD_SPEED = "quick"
 
+
 class VivadoImplStrategyCfg(str, Enum):
     "Values applicable to VitisBuild Vivado implementation strategy"
 

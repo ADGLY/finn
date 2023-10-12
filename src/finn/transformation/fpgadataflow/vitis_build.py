@@ -72,6 +72,7 @@ class VitisOptStrategy(Enum):
     SIZE = "s"
     BUILD_SPEED = "quick"
 
+
 class VivadoImplStrategy(str, Enum):
     "Values applicable to VitisBuild Vivado implementation strategy"
 
@@ -389,7 +390,7 @@ class VitisBuild(Transformation):
         self.floorplan_file = floorplan_file
         self.enable_link = enable_link
         self.partition_model_dir = partition_model_dir
-        self.impl_strategy=impl_strategy
+        self.impl_strategy = impl_strategy
 
     def apply(self, model):
         _check_vitis_envvars()
