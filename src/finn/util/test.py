@@ -42,7 +42,11 @@ from qonnx.custom_op.registry import getCustomOp
 
 from finn.core.onnx_exec import execute_onnx
 from finn.transformation.fpgadataflow.make_zynq_proj import ZynqBuild
-from finn.transformation.fpgadataflow.vitis_build import VitisBuild, VitisOptStrategy
+from finn.transformation.fpgadataflow.vitis_build import (
+    VitisBuild,
+    VitisOptStrategy,
+    VivadoImplStrategy,
+)
 from finn.util.basic import alveo_default_platform, alveo_part_map, pynq_part_map
 
 # map of (wbits,abits) -> model
@@ -117,12 +121,22 @@ def get_build_env(board, target_clk_ns):
     elif board in alveo_part_map:
         ret["kind"] = "alveo"
         ret["part"] = alveo_part_map[board]
-        ret["build_fxn"] = VitisBuild(
-            ret["part"],
-            target_clk_ns,
-            alveo_default_platform[board],
-            strategy=VitisOptStrategy.BUILD_SPEED,
-        )
+        # Workaround for intermittent routing issue observed on 2022.2 tools when targetting U250
+        if board == "U250":
+            ret["build_fxn"] = VitisBuild(
+                ret["part"],
+                target_clk_ns,
+                alveo_default_platform[board],
+                strategy=VitisOptStrategy.BUILD_SPEED,
+                impl_strategy=VivadoImplStrategy.PERFORMANCE_BLANCESLR,
+            )
+        else:
+            ret["build_fxn"] = VitisBuild(
+                ret["part"],
+                target_clk_ns,
+                alveo_default_platform[board],
+                strategy=VitisOptStrategy.BUILD_SPEED,
+            )
     else:
         raise Exception("Unknown board specified")
     return ret
