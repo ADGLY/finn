@@ -83,6 +83,12 @@ class VitisOptStrategyCfg(str, Enum):
     SIZE = "size"
     BUILD_SPEED = "quick"
 
+class VivadoImplStrategyCfg(str, Enum):
+    "Values applicable to VitisBuild Vivado implementation strategy"
+
+    DEFAULT = "Vivado Implementation Defaults"
+    PERFORMANCE_BLANCESLR = "impl_Performance_BalanceSLRs"
+
 
 class LargeFIFOMemStyle(str, Enum):
     """Type of memory resource to use for large FIFOs."""
@@ -304,6 +310,10 @@ class DataflowBuildConfig:
     #: Vitis optimization strategy
     #: Only relevant when `shell_flow_type = ShellFlowType.VITIS_ALVEO`
     vitis_opt_strategy: Optional[VitisOptStrategyCfg] = VitisOptStrategyCfg.DEFAULT
+
+    #: Vivado implementation strategy
+    #: Only relevant when `shell_flow_type = ShellFlowType.VITIS_ALVEO`
+    vitis_opt_strategy: Optional[VivadoImplStrategyCfg] = VivadoImplStrategyCfg.DEFAULT
 
     #: Whether intermediate ONNX files will be saved during the build process.
     #: These can be useful for debugging if the build fails.
