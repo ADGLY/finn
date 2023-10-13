@@ -128,7 +128,7 @@ def get_build_env(board, target_clk_ns):
                 target_clk_ns,
                 alveo_default_platform[board],
                 strategy=VitisOptStrategy.BUILD_SPEED,
-                impl_strategy=VivadoImplStrategy.PERFORMANCE_BLANCESLR,
+                impl_strategy=VivadoImplStrategy.PERFORMANCE_BALANCESLR,
             )
         else:
             ret["build_fxn"] = VitisBuild(

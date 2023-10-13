@@ -33,7 +33,10 @@ from dataclasses_json import dataclass_json
 from enum import Enum
 from typing import Any, List, Optional
 
-from finn.transformation.fpgadataflow.vitis_build import VitisOptStrategy
+from finn.transformation.fpgadataflow.vitis_build import (
+    VitisOptStrategy,
+    VivadoImplStrategy,
+)
 from finn.util.basic import alveo_default_platform, alveo_part_map, pynq_part_map
 
 
@@ -87,8 +90,9 @@ class VitisOptStrategyCfg(str, Enum):
 class VivadoImplStrategyCfg(str, Enum):
     "Values applicable to VitisBuild Vivado implementation strategy"
 
-    DEFAULT = "Vivado Implementation Defaults"
-    PERFORMANCE_BLANCESLR = "impl_Performance_BalanceSLRs"
+    DEFAULT = "'Vivado Implementation Defaults'"
+    PERFORMANCE_BALANCESLR = "Performance_BalanceSLRs"
+    PERFORMANCE_HIGHUTILSLR = "Performance_HighUtilSLRs"
 
 
 class LargeFIFOMemStyle(str, Enum):
@@ -314,7 +318,7 @@ class DataflowBuildConfig:
 
     #: Vivado implementation strategy
     #: Only relevant when `shell_flow_type = ShellFlowType.VITIS_ALVEO`
-    vitis_opt_strategy: Optional[VivadoImplStrategyCfg] = VivadoImplStrategyCfg.DEFAULT
+    vivado_impl_strategy: Optional[VivadoImplStrategy] = VivadoImplStrategy.DEFAULT
 
     #: Whether intermediate ONNX files will be saved during the build process.
     #: These can be useful for debugging if the build fails.

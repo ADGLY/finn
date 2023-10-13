@@ -77,7 +77,8 @@ class VivadoImplStrategy(str, Enum):
     "Values applicable to VitisBuild Vivado implementation strategy"
 
     DEFAULT = "'Vivado Implementation Defaults'"
-    PERFORMANCE_BLANCESLR = "impl_Performance_BalanceSLRs"
+    PERFORMANCE_BALANCESLR = "Performance_BalanceSLRs"
+    PERFORMANCE_HIGHUTILSLR = "Performance_HighUtilSLRs"
 
 
 class CreateVitisXO(Transformation):
